@@ -10,3 +10,7 @@
   - Add Exception (403,404)
   - Add Soft Deletes
   - Applied Soft Deletes to Schedule
+
+## 2019-06-01 v1.1 (18:22) :
+  - Add Update
+  - [Fixed] Soft Deletes cannot delete data from database
