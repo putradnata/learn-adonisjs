@@ -9,6 +9,7 @@
  */
 
 const Schedule = use ('App/Models/Schedule')
+const AuthorizationService = use ('App/Services/AuthorizationService')
 
 class ScheduleController {
   /**
@@ -37,13 +38,11 @@ class ScheduleController {
    */
   async create ({ request, response, view, auth }) {
     const user = await auth.getUser()
-    const {name, date} = request.all()
+    const {name} = request.all()
     const schedule = new Schedule()
 
     schedule.fill({
-      name,
-      date,
-      user_id:user.id
+      name
     })
 
     await user.schedules().save(schedule)
@@ -104,7 +103,14 @@ class ScheduleController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, request, response, auth }) {
+    const user = await auth.getUser()
+    const { id } = params
+    const schedule = await Schedule.find(id)
+    AuthorizationService.verifyPermission(schedule, user)
+    await schedule.delete();
+
+    return schedule
   }
 }
 

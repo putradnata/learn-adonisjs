@@ -8,9 +8,10 @@ class ScheduleSchema extends Schema {
     this.create('schedules', (table) => {
       table.increments()
       table.string('name', 80).notNullable()
-      table.date('date')
+      table.timestamp('date')
       table.integer('user_id').unsigned().references('id').inTable('users')
       table.timestamps()
+      table.datetime('deleted_at')
     })
   }
 
