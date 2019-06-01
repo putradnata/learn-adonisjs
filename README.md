@@ -8,3 +8,5 @@ Scheduler App created with Adonis JS
 - User Authentication
 - Add New Schedule
 - Get Schedule Data
+
+See Changelog <a href="https://github.com/putradnata/learn-adonisjs/blob/newfeature/changelog.md">here</a> 
