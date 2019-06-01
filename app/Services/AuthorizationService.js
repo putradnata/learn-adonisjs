@@ -7,7 +7,7 @@ class AuthorizationService{
       throw new ResourceNotExistException()
     }
 
-    if(resource.user_id !== user.user_id){
+    if(resource.user_id !== user.id){
       throw new InvalidAccessException()
     }
   }

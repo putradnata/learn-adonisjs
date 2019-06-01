@@ -38,11 +38,12 @@ class ScheduleController {
    */
   async create ({ request, response, view, auth }) {
     const user = await auth.getUser()
-    const {name} = request.all()
+    const { name,date } = request.all()
     const schedule = new Schedule()
 
     schedule.fill({
-      name
+      name,
+      date
     })
 
     await user.schedules().save(schedule)
@@ -92,7 +93,16 @@ class ScheduleController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update ({ params, request, response, auth }) {
+    const user = await auth.getUser();
+    const { id } = params
+    const schedule = await Schedule.find(id)
+    AuthorizationService.verifyPermission(schedule, user)
+
+    schedule.merge(request.only('name','date'))
+    await schedule.save()
+    return schedule
+
   }
 
   /**

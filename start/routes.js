@@ -26,5 +26,6 @@ Route.group(() => {
 
   Route.get('schedule','ScheduleController.index').middleware('auth')
   Route.post('schedule/create','ScheduleController.create').middleware('auth')
-  Route.delete('schedule/:id','ScheduleController.destroy').middleware('auth')
+  Route.delete('schedule/destroy/:id','ScheduleController.destroy').middleware('auth')
+  Route.patch('schedule/update/:id','ScheduleController.update').middleware('auth')
 }).prefix('api')
